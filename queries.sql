@@ -33,4 +33,12 @@ SELECT * FROM animals;
 
 COMMIT;
 
+BEGIN TRANSACTION;
 
+TRUNCATE TABLE animals;
+
+SELECT * FROM animals;
+ROLLBACK;
+SELECT * FROM animals;
+
+COMMIT;

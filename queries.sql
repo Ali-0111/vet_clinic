@@ -9,3 +9,12 @@ select name, escape_attempts from animals where weight_kg > 10.5;
 select * from animals where neutered = true; 
 select * from animals where name !=  'Gabumon'; 
 select * from animals where weight_kg BETWEEN 10.4 and 17.3;
+
+-- Transaction and Roll back
+BEGIN TRANSACTION;
+
+UPDATE animals
+SET species = 'unspecified';
+
+
+

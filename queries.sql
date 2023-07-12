@@ -16,5 +16,21 @@ BEGIN TRANSACTION;
 UPDATE animals
 SET species = 'unspecified';
 
+COMMIT;
+
+BEGIN TRANSACTION;
+UPDATE animals SET species = 'digimon' 
+WHERE name LIKE '%mon';
+
+SAVEPOINT a;
+
+UPDATE animals SET species = 'pokemon' 
+WHERE name NOT LIKE '%mon';
+
+SAVEPOINT b;
+
+SELECT * FROM animals;
+
+COMMIT;
 
 

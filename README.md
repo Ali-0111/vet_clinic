@@ -14,7 +14,7 @@ This repository includes files with plain SQL that can be used to recreate a dat
 
 <!--
 HOW TO USE:
-This is an example of how to sett up your database project locally:
+This is an example of how to sett up your database project locally.
 
 REQUIRED SECTIONS:
 - Table of Contents

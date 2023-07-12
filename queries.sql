@@ -18,6 +18,8 @@ SET species = 'unspecified';
 
 COMMIT;
 
+-- Requirements_1: 
+
 BEGIN TRANSACTION;
 UPDATE animals SET species = 'digimon' 
 WHERE name LIKE '%mon';
@@ -33,6 +35,10 @@ SELECT * FROM animals;
 
 COMMIT;
 
+
+
+-- Requirement-2
+
 BEGIN TRANSACTION;
 
 TRUNCATE TABLE animals;
@@ -41,4 +47,29 @@ SELECT * FROM animals;
 ROLLBACK;
 SELECT * FROM animals;
 
+
+-- Requirement-3 
+
+BEGIN TRANSACTION;
+
+DELETE FROM animals WHERE date_of_birth > '2022-01-01';
+
+SAVEPOINT delete;
+
+UPDATE animals
+SET weight_kg = -1 * weight_kg;
+
+SELECT * FROM animals;
+ROLLBACK;
 COMMIT;
+
+-- Requirement-4 
+SELECT count(name) as Number_of_Animals from animals;
+SELECT name, escape_attempts FROM animals WHERE escape_attempts = 0; 
+SELECT AVG(weight_kg) AS Weight_Average  FROM animals;
+SELECT name, neutered, escape_attempts 
+FROM animals
+WHERE escape_attempts = (SELECT MAX(escape_attempts) FROM animals); 
+
+SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals GROUP BY species;
+

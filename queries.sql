@@ -160,3 +160,50 @@ WHERE v.date =(
         WHERE vt.name = 'William Tatcher'
         ) AS subquery
 );
+
+-- How many different animals did Stephanie Mendez see?
+SELECT COUNT(*) as animals_type_visited FROM (
+    SELECT COUNT(*) FROM vets vt
+    JOIN visits vs ON vt.id = vs.vet_id
+    WHERE vt.name = 'Stephanie Mendez'
+    GROUP BY vs.animal_id
+) AS subquery;
+
+-- List all vets and their specialties, including vets with no specialties.
+SELECT v.name, s.name as speciality FROM vets v
+LEFT JOIN specialization sp ON sp.vet_id = v.id
+LEFT JOIN species s ON s.id = sp.species_id;
+
+-- List all animals that visited Stephanie Mendez between April 1st and August 30th, 2020.
+
+SELECT a.name, v.name as vet, date FROM animals a
+JOIN visits ON visits.animal_id = a.id
+JOIN vets v ON visits.vet_id = v.id
+WHERE v.name = 'Stephanie Mendez' 
+AND date BETWEEN '2020-4-1' AND '2020-8-30';
+
+-- What animal has the most visits to vets?
+SELECT a.name AS animal, COUNT(*) AS visit_count
+FROM animals a
+JOIN visits v ON a.id = v.animal_id
+GROUP BY a.id, a.name
+ORDER BY visit_count DESC;
+LIMIT 1;
+
+-- Who was Maisy Smith's first visit?
+SELECT a.name, v.name as vet, date FROM animals a
+JOIN visits ON visits.animal_id = a.id
+JOIN vets v ON visits.vet_id = v.id
+WHERE v.name = 'Maisy Smith'
+ORDER BY date
+LIMIT 1;
+
+-- How many visits were with a vet that did not specialize in that animal's species?
+SELECT COUNT(*) as unspecialized_visits
+FROM (
+    SELECT a.id as animal_id, a.species_id as animal_species,
+    sp.species_id as vet_specialization  FROM animals a
+    JOIN visits vs ON a.id = vs.animal_id
+    JOIN specialization sp ON sp.vet_id = vs.vet_id
+    WHERE a.species_id != sp.species_id
+    ) AS subquery;

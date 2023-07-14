@@ -123,3 +123,24 @@ JOIN owners
 ON animals.owner_id = owners.id
 WHERE owners.full_name = 'Jennifer Orwell'
 AND species.name = 'Digimon';
+
+-- List all animals owned by Dean Winchester that haven't tried to escape.
+
+SELECT animals.name , owners.full_name, animals.escape_attempts
+FROM animals
+JOIN owners
+ON animals.owner_id = owners.id
+WHERE owners.full_name = 'Dean Winchester'
+AND animals.escape_attempts = 0
+;
+
+-- Who owns the most animals?
+
+SELECT owners.full_name, count(owners.full_name) AS Number_of_Animals
+FROM animals
+JOIN owners
+ON animals.owner_id = owners.id
+GROUP BY owners.full_name
+ORDER BY Number_of_Animals DESC
+LIMIT 1
+; 

@@ -144,3 +144,19 @@ GROUP BY owners.full_name
 ORDER BY Number_of_Animals DESC
 LIMIT 1
 ;
+
+-- Advance join tables
+-- Who was the last animal seen by William Tatcher?
+SELECT a.name, vt.name as vet, v.date FROM animals a
+JOIN visits v ON v.animal_Id = a.id
+JOIN vets vt ON vt.id = v.vet_id
+WHERE v.date =(
+    SELECT MAX(visit_date) 
+    FROM (
+        SELECT a.name as animal, vt.name as vet, 
+        vs.date as visit_date FROM animals a
+        JOIN visits vs ON vs.animal_id = a.id
+        JOIN vets vt ON vt.id = vs.vet_id
+        WHERE vt.name = 'William Tatcher'
+        ) AS subquery
+);

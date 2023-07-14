@@ -94,5 +94,11 @@ WHERE full_name = 'Melody Pond';
 --List of all animals that are pokemon (their type is Pokemon).
 SELECT animals.name, species.name FROM animals
 JOIN species
-ON animals.species_id = species.id
+ON species.id = animals.species_id 
 WHERE species.name = 'Pokemon';
+
+-- List all owners and their animals, remember to include those that don't own any animal.
+
+SELECT owners.full_name AS Owners, animals.name AS pet FROM owners
+LEFT JOIN animals
+ON animals.owner_id = owners.id;

@@ -143,4 +143,4 @@ ON animals.owner_id = owners.id
 GROUP BY owners.full_name
 ORDER BY Number_of_Animals DESC
 LIMIT 1
-; 
+;

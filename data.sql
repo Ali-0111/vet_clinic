@@ -126,11 +126,23 @@ COMMIT;
 
 -- INSERT DATA FOR SPECIALIZATION
 INSERT INTO specialization (vet_id, species_id)
-VALUES 
-    (1,1),
-    (3,1),
-    (3,2),
-    (4,2);
+VALUES
+    (
+        (SELECT id FROM vets WHERE name = 'William Tatcher'),
+        (SELECT id FROM species WHERE name = 'Pokemon')
+    ),
+    (
+        (SELECT id FROM vets WHERE name = 'Stephanie Mendez'),
+        (SELECT id FROM species WHERE name = 'Digimon')
+    ),
+    (
+        (SELECT id FROM vets WHERE name = 'Stephanie Mendez'),
+        (SELECT id FROM species WHERE name = 'Pokemon')
+    ),
+    (
+        (SELECT id FROM vets WHERE name = 'Jack Harkness'),
+        (SELECT id FROM species WHERE name = 'Digimon')
+    );
 
 -- INSERT DATA FOR VISITS
 INSERT INTO visits (animal_id, vet_id, date)
